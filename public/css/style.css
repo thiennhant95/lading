@@ -1,0 +1,22 @@
+.tooltip-inner {
+    background-color: #e80000;
+}
+.tooltip.top .tooltip-arrow {
+    border-top-color: #e80000;
+}
+.tooltip.bottom .tooltip-arrow, .tooltip.bottom-left .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow {
+    border-bottom-color: #e80000;
+}
+.tooltip.left .tooltip-arrow {
+    border-left-color: #e80000;
+}
+.tooltip.right .tooltip-arrow {
+    border-right-color: #e80000;
+}
+#submit{
+    font-size: 21px;
+    padding: 0;
+    border: 0;
+    color: white;
+    line-height: 40px;
+}
