@@ -15,7 +15,7 @@
 }
 
 .titline {
-  background: url(../item/images/linetit.png) repeat-x left bottom;
+  background: url(../images/item/linetit.png) repeat-x left bottom;
   padding-bottom: 14px;
   position: relative;
   margin-bottom: 3%;
@@ -23,7 +23,7 @@
 }
 
 .titline h3 {
-  background: url(../item/images/icon_cir.png) no-repeat left center;
+  background: url(../images/item/icon_cir.png) no-repeat left center;
   padding-left: 30px;
   font-size: 24px;
   min-height: 20px;
@@ -224,7 +224,7 @@
 .layout6page .lightbox:after {
   position: absolute;
   content: '';
-  background: url(../item/images/icon_search.png) no-repeat;
+  background: url(../images/item/icon_search.png) no-repeat;
   background-size: 100%;
   width: 100%;
   height: 100%;
@@ -240,7 +240,7 @@
 .layout6page .lightbox2:after {
   position: absolute;
   content: '';
-  background: #fff url(../item/images/icon_search2.png) no-repeat;
+  background: #fff url(../images/item/icon_search2.png) no-repeat;
   background-size: 30px;
   width: 30px;
   height: 30px;
@@ -704,7 +704,7 @@
 }
 
 .layout_detail .block2 .inforperson li {
-  background: url(../item/images/iconper.png) no-repeat left top;
+  background: url(../images/item/iconper.png) no-repeat left top;
   padding-left: 25px;
   margin: 5px 0;
 }
@@ -1692,7 +1692,7 @@
 }
 
 .assessor .titline1 {
-  background: url(../item/images/linetit.png) repeat-x left bottom;
+  background: url(../images/item/linetit.png) repeat-x left bottom;
   padding-bottom: 12px;
   position: relative;
   margin-bottom: 3%;
@@ -1931,7 +1931,7 @@
 }
 
 .assessor .titpen h3 {
-  background: url(../estimate/images/iconpen.png) no-repeat left bottom;
+  background: url(../images/estimate/iconpen.png) no-repeat left bottom;
   font-size: 24px;
   min-height: 40px;
   padding-left: 50px;
@@ -2047,7 +2047,7 @@
 }
 
 .estimate .titline2 {
-  background: url(../estimate/images/linered.png) repeat-x left bottom;
+  background: url(../images/estimate/linered.png) repeat-x left bottom;
   padding-bottom: 12px;
   position: relative;
   margin-bottom: 3%;
@@ -2227,7 +2227,7 @@
 .ld_page_com .boxtop {
   position: relative;
   margin-top: -100px;
-  background: url(../company/images/bgbox.png) no-repeat top center;
+  background: url(../images/company/bgbox.png) no-repeat top center;
   width: 1010px;
   margin-left: -5px;
 }
@@ -2245,7 +2245,7 @@
 }
 
 .ld_page_com .banner {
-  background: url(../company/images/bgbannerpc.jpg) no-repeat center top;
+  background: url(../images/company/bgbannerpc.jpg) no-repeat center top;
   height: 540px;
 }
 
@@ -2353,7 +2353,7 @@
 }
 
 .ld_page_com .section1 {
-  background: url(../company/images/bg01.jpg) no-repeat center top;
+  background: url(../images/company/bg01.jpg) no-repeat center top;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -2377,7 +2377,7 @@
 }
 
 .ld_page_com .section2 {
-  background: url(../company/images/bg02.jpg) no-repeat center top;
+  background: url(../images/company/bg02.jpg) no-repeat center top;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
@@ -2420,7 +2420,7 @@
 }
 
 .ld_page_com .section3 {
-  background: url(../company/images/bg03.jpg) no-repeat center top;
+  background: url(../images/company/bg03.jpg) no-repeat center top;
   background-size: cover;
   padding: 100px 0 50px;
 }
@@ -2483,7 +2483,7 @@
 }
 
 .ld_page_com .section4 {
-  background: url(../company/images/bg04.jpg) no-repeat center top;
+  background: url(../images/company/bg04.jpg) no-repeat center top;
   background-size: cover;
   padding: 100px 0 50px;
 }
@@ -2515,7 +2515,7 @@
 }
 
 .ld_page_com .section5 {
-  background: url(../company/images/bg05.jpg) no-repeat center top;
+  background: url(../images/company/bg05.jpg) no-repeat center top;
   background-size: cover;
   padding: 100px 0 50px;
 }
@@ -2528,7 +2528,7 @@
 }
 
 .ld_page_com .section5 .boxfaq dt {
-  background: url(../company/images/icon_q.png) no-repeat left top;
+  background: url(../images/company/icon_q.png) no-repeat left top;
   background-size: 40px;
   min-height: 45px;
   color: #1d58c3;
@@ -2542,7 +2542,7 @@
 }
 
 .ld_page_com .section5 .boxfaq dd {
-  background: url(../company/images/icon_a.png) no-repeat left top 10px;
+  background: url(../images/company/icon_a.png) no-repeat left top 10px;
   background-size: 40px;
   min-height: 45px;
   padding-left: 60px;
@@ -2552,7 +2552,7 @@
 }
 
 .ld_page_user .banner {
-  background: url(../user/images/bgbannerpc.jpg) no-repeat center top;
+  background: url(../images/user/bgbannerpc.jpg) no-repeat center top;
   height: 597px;
   position: relative;
 }
@@ -2676,7 +2676,7 @@
     position: relative;
   }
   .ld_page_com .banner {
-    background: url(../company/images/bgbannerpc.jpg) no-repeat center top;
+    background: url(../images/company/bgbannerpc.jpg) no-repeat center top;
     background-size: cover;
     height: auto;
     padding-bottom: 80px;
@@ -2688,7 +2688,7 @@
   .ld_page_com .boxtop {
     position: relative;
     margin-top: 0px;
-    background: url(../company/images/bgbox.png) no-repeat top center;
+    background: url(../images/company/bgbox.png) no-repeat top center;
     background-size: 100%;
     width: 100%;
     margin-left: 0px;
@@ -2874,7 +2874,7 @@
   .ld_page_com .section5 .boxfaq dt:after {
     position: absolute;
     content: "";
-    background: url(../company/images/icon_plus.png) no-repeat right top;
+    background: url(../images/company/icon_plus.png) no-repeat right top;
     background-size: 100%;
     width: 30px;
     height: 30px;
@@ -2882,7 +2882,7 @@
     top: 8px;
   }
   .ld_page_com .section5 .boxfaq dt.open:after {
-    background: url(../company/images/icon_minus.png) no-repeat right top;
+    background: url(../images/company/icon_minus.png) no-repeat right top;
     background-size: 100%;
   }
   .ld_page_com .section5 .boxfaq dd {
@@ -2985,7 +2985,7 @@
   }
   .ld_page_com .section1 {
     padding: 5% 0 2%;
-    background: url(../company/images/bg01_sp.jpg) no-repeat center top;
+    background: url(../images/company/bg01_sp.jpg) no-repeat center top;
     background-size: cover;
   }
   .ld_page_com .section1 .flexrowbetween {
@@ -3018,7 +3018,7 @@
     margin-right: 5%;
   }
   .ld_page_com .section2 {
-    background: #d11010 url(../company/images/bg02_sp.jpg) no-repeat center top;
+    background: #d11010 url(../images/company/bg02_sp.jpg) no-repeat center top;
     background-size: contain;
     -webkit-box-align: center;
     -ms-flex-align: center;
@@ -3035,7 +3035,7 @@
     right: -6%;
   }
   .ld_page_com .section3 {
-    background: url(../company/images/bg03_sp.jpg) no-repeat center top;
+    background: url(../images/company/bg03_sp.jpg) no-repeat center top;
     background-size: cover;
     padding: 6% 0% 6%;
   }
@@ -3062,7 +3062,7 @@
     margin-bottom: 0;
   }
   .ld_page_com .section4 {
-    background: url(../company/images/bg04_sp.jpg) no-repeat center top;
+    background: url(../images/company/bg04_sp.jpg) no-repeat center top;
     background-size: cover;
     padding: 6% 0% 6%;
   }
@@ -3075,7 +3075,7 @@
     font-size: 16px;
   }
   .ld_page_com .section5 {
-    background: url(../company/images/bg05_sp.jpg) no-repeat center top;
+    background: url(../images/company/bg05_sp.jpg) no-repeat center top;
     background-size: cover;
     padding: 6% 2% 6%;
   }

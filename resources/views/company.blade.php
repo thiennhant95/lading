@@ -21,28 +21,30 @@
     </div>
     <article>
         <form method="post" id="IdCompany_1">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+            {{ csrf_field() }}
             <div class="boxtop2">
                 <div class="inbox">
                     <table class="tbstyle">
                         <tr>
                             <th>会社名 <span class="hinsu">必須</span></th>
-                            <td><input type="text" value="" name="company_name" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                            <td><input type="text" value="" name="company_name" id="company_name" size="" tabindex="" accesskey="" placeholder="" required></td>
                         </tr>
                         <tr>
                             <th>ご担当者 <span class="hinsu">必須</span></th>
-                            <td><input type="text" value="" name="contact_name" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                            <td><input type="text" value="" name="contact_name" id="contact_name" size="" tabindex="" accesskey="" placeholder="" required></td>
                         </tr>
                         <tr>
                             <th>電話番号 <span class="hinsu">必須</span></th>
-                            <td><input type="text" value="" name="phone" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                            <td><input type="text" value="" name="phone" id="phone" size="" tabindex="" accesskey="" placeholder="" required></td>
                         </tr>
                         <tr>
                             <th>メールアドレス <span class="hinsu">必須</span></th>
-                            <td><input type="text" value="" name="email" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                            <td><input type="text" value="" name="email" id="email" size="" tabindex="" accesskey="" placeholder="" required></td>
                         </tr>
                     </table>
                 </div>
-                <div class="text_center"><p class="btndk"><button type="submit" style="padding:0; border: none;cursor: pointer;"><img src="{{url('images/company/btn1.png')}}" alt="無料登録をする"></button></p></div>
+                <div class="text_center"><p class="btndk"><button class="submit1" type="submit" style="padding:0; border: none;cursor: pointer;"><img src="{{url('images/company/btn1.png')}}" alt="無料登録をする"></button></p></div>
             </div>
         </form>
         <div class="boxtel">
@@ -186,28 +188,30 @@
 <!-- end content_secon -->
 <article>
     <form method="post" id="IdCompany_2">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        {{ csrf_field() }}
     <div class="boxtop2">
         <div class="inbox">
             <table class="tbstyle">
                 <tr>
                     <th>会社名 <span class="hinsu">必須</span></th>
-                    <td><input type="text" value="" name="company_name" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input type="text" value="" name="company_name" id="company_name2" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th>ご担当者 <span class="hinsu">必須</span></th>
-                    <td><input type="text" value="" name="contact_name" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input type="text" value="" name="contact_name" id="contact_name2" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th>電話番号 <span class="hinsu">必須</span></th>
-                    <td><input type="text" value="" name="phone" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input type="text" value="" name="phone" id="phone2" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th>メールアドレス <span class="hinsu">必須</span></th>
-                    <td><input type="text" value="" name="email" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input type="text" value="" name="email" id="email2" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
             </table>
         </div>
-        <div class="text_center"><p class="btndk"><button type="submit" style="padding:0; border: none;cursor: pointer;"><img src="{{url('images/company/btn1.png')}}" alt="無料登録をする"></button></p></div>
+        <div class="text_center"><p class="btndk"><button class="submit2" type="submit" style="padding:0; border: none;cursor: pointer;"><img src="{{url('images/company/btn1.png')}}" alt="無料登録をする"></button></p></div>
     </div>
     </form>
     <div class="boxtel">
@@ -281,28 +285,30 @@
 <!-- end content_secon -->
 <article>
     <form method="post" id="IdCompany_3">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        {{ csrf_field() }}
         <div class="boxtop2">
             <div class="inbox">
                 <table class="tbstyle">
                     <tr>
                         <th>会社名 <span class="hinsu">必須</span></th>
-                        <td><input type="text" value="" name="company_name" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                        <td><input type="text" value="" name="company_name" id="company_name3" size="" tabindex="" accesskey="" placeholder="" required></td>
                     </tr>
                     <tr>
                         <th>ご担当者 <span class="hinsu">必須</span></th>
-                        <td><input type="text" value="" name="contact_name" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                        <td><input type="text" value="" name="contact_name" id="contact_name3" size="" tabindex="" accesskey="" placeholder="" required></td>
                     </tr>
                     <tr>
                         <th>電話番号 <span class="hinsu">必須</span></th>
-                        <td><input type="text" value="" name="phone" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                        <td><input type="text" value="" name="phone" id="phone3" size="" tabindex="" accesskey="" placeholder="" required></td>
                     </tr>
                     <tr>
                         <th>メールアドレス <span class="hinsu">必須</span></th>
-                        <td><input type="text" value="" name="email" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                        <td><input type="text" value="" name="email" id="email3" size="" tabindex="" accesskey="" placeholder="" required></td>
                     </tr>
                 </table>
             </div>
-            <div class="text_center"><p class="btndk"><button type="submit" style="padding:0; border: none;cursor: pointer;"><img src="{{url('images/company/btn1.png')}}" alt="無料登録をする"></button></p></div>
+            <div class="text_center"><p class="btndk"><button class="submit3" type="submit" style="padding:0; border: none;cursor: pointer;"><img src="{{url('images/company/btn1.png')}}" alt="無料登録をする"></button></p></div>
         </div>
     </form>
     <div class="boxtel">

@@ -1,4 +1,4 @@
-@extends('master');
+@extends('master')
 @section('content')
     <body id="wrapper" class="ld_page_com ld_page_user">
     <!--<?php //echo DispHeader();?>-->
@@ -21,46 +21,49 @@
             <h2 class="dis_pc text_center"><img src="{{url('images/user/banner_sp.png')}}" alt="オークション&競争見積りだから あなたの愛車がどこよりも高く売れる！"></h2>
         </div>
         <article class="boxdis_pc">
+        <form id="FormRegisterSeller1">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+         {{ csrf_field() }}
             <div class="boxteltop">
                 <h3 class="dis_pc text_center"><img src="{{url('images/user/titboxtel.png')}}" alt="あなたの愛車、とりあえず価格だけチェック！"></h3>
                 <h3 class="dis_sp text_center"><img src="{{url('images/user/titboxtel_sp.png')}}" alt="あなたの愛車、とりあえず価格だけチェック！"></h3>
                 <div class="tbbox">
                     <table class="tbstyle">
-                        <tr>
-                            <th><span class="hinsu">必須</span> メーカー</th>
-                            <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
-                        </tr>
-                        <tr>
-                            <th><span class="hinsu">必須</span> 車種</th>
-                            <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
-                        </tr>
-                        <tr>
-                            <th><span class="ninni">任意</span> 年式</th>
-                            <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
-                        </tr>
-                        <tr>
-                            <th><span class="ninni">任意</span> 走行距離</th>
-                            <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
-                        </tr>
-                    </table>
-                    <table class="tbstyle">
-                        <tr>
-                            <th><span class="hinsu">必須</span> TEL</th>
-                            <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）09012345678"></td>
-                        </tr>
-                        <tr>
-                            <th><span class="hinsu">必須</span> 名前</th>
-                            <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）山田　太郎"></td>
-                        </tr>
-                        <tr>
-                            <th><span class="ninni">任意</span> 都道府県</th>
-                            <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
-                        </tr>
-                        <tr>
-                            <th><span class="ninni">任意</span> メール</th>
-                            <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）yamada@smart.com"></td>
-                        </tr>
-                    </table>
+                    <tr>
+                        <th><span class="hinsu">必須</span> メーカー</th>
+                        <td><input type="text" value="" name="seller_maker" id="seller_maker" size="" tabindex="" accesskey="" placeholder=""></td>
+                    </tr>
+                    <tr>
+                        <th><span class="hinsu">必須</span> 車種</th>
+                        <td><input type="text" value="" name="seller_car_type" id="seller_car_type" size="" tabindex="" accesskey="" placeholder=""></td>
+                    </tr>
+                    <tr>
+                        <th><span class="ninni">任意</span> 年式</th>
+                        <td><input type="text" value="" name="seller_date" id="seller_date" size="" tabindex="" accesskey="" placeholder=""></td>
+                    </tr>
+                    <tr>
+                        <th><span class="ninni">任意</span> 走行距離</th>
+                        <td><input type="text" value="" name="seller_mileage" id="seller_mileage" size="" tabindex="" accesskey="" placeholder=""></td>
+                    </tr>
+                </table>
+                <table class="tbstyle">
+                    <tr>
+                        <th><span class="hinsu">必須</span> TEL</th>
+                        <td><input type="text" value="" name="seller_tel" id="seller_tel" size="" tabindex="" accesskey="" placeholder="例）09012345678" ></td>
+                    </tr>
+                    <tr>
+                        <th><span class="hinsu">必須</span> 名前</th>
+                        <td><input type="text" value="" name="seller_name" id="seller_name" size="" tabindex="" accesskey="" placeholder="例）山田　太郎"></td>
+                    </tr>
+                    <tr>
+                        <th><span class="ninni">任意</span> 都道府県</th>
+                        <td><input type="text" value="" name="seller_zone" id="seller_zone" size="" tabindex="" accesskey="" placeholder=""></td>
+                    </tr>
+                    <tr>
+                        <th><span class="ninni">任意</span> メール</th>
+                        <td><input type="text" value="" name="seller_email" id="seller_email" size="" tabindex="" accesskey="" placeholder="例）yamada@smart.com"></td>
+                    </tr>
+                </table>
                 </div>
                 <div class="boxbtn_tel">
                     <div class="txt">
@@ -68,9 +71,10 @@
                         <p class="dis_pc"><img src="{{url('images/user/txttelhd.png')}}" alt="tel:06-7670-7744"></p>
                         <p class="dis_sp"><a href="tel:06-7670-7744"><img src="{{url('images/user/txttelhd.png')}}" alt="tel:06-7670-7744"></a></p>
                     </div>
-                    <div><p class="btn"><a href="#"><img src="{{url('images/user/btn1.png')}}" alt="無料登録をする"></a></p></div>
+                    <div><p class="btn"><button type="submit" id="submit1" style="padding:0; border: none; cursor: pointer;"><img src="{{url('images/user/btn1.png')}}" alt="無料登録をする"></button></p></div>
                 </div>
             </div>
+        </form>
         </article>
     </section>
     <!-- end content_secon -->
@@ -188,6 +192,9 @@
     <p class="text_center arrbg"><img src="{{url('')}}/images/user/arr_sp.png" alt="arrow"></p>
     <!-- end content_secon -->
     <article class="position">
+        <form id="FormRegisterSeller2">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+         {{ csrf_field() }}
         <div class="boxteltop">
             <h3 class="dis_pc text_center"><img src="{{url('')}}/images/user/titboxtel.png" alt="あなたの愛車、とりあえず価格だけチェック！"></h3>
             <h3 class="dis_sp text_center"><img src="{{url('')}}/images/user/titboxtel_sp.png" alt="あなたの愛車、とりあえず価格だけチェック！"></h3>
@@ -195,37 +202,37 @@
                 <table class="tbstyle">
                     <tr>
                         <th><span class="hinsu">必須</span> メーカー</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_maker" id="seller_maker2" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                     <tr>
                         <th><span class="hinsu">必須</span> 車種</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_car_type" id="seller_car_type2" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 年式</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_date" id="seller_date2" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 走行距離</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_mileage" id="seller_mileage2" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                 </table>
                 <table class="tbstyle">
                     <tr>
                         <th><span class="hinsu">必須</span> TEL</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）09012345678"></td>
+                        <td><input type="text" value="" name="seller_tel" id="seller_tel2" size="" tabindex="" accesskey="" placeholder="例）09012345678" ></td>
                     </tr>
                     <tr>
                         <th><span class="hinsu">必須</span> 名前</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）山田　太郎"></td>
+                        <td><input type="text" value="" name="seller_name" id="seller_name2" size="" tabindex="" accesskey="" placeholder="例）山田　太郎"></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 都道府県</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_zone" id="seller_zone2" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> メール</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）yamada@smart.com"></td>
+                        <td><input type="text" value="" name="seller_email" id="seller_email2" size="" tabindex="" accesskey="" placeholder="例）yamada@smart.com"></td>
                     </tr>
                 </table>
             </div>
@@ -235,9 +242,10 @@
                     <p class="dis_pc"><img src="{{url('images/user/txttelhd.png')}}" alt="tel:06-7670-7744"></p>
                     <p class="dis_sp"><a href="tel:06-7670-7744"><img src="{{url('images/user/txttelhd.png')}}." alt="tel:06-7670-7744"></a></p>
                 </div>
-                <div><p class="btn"><a href="#"><img src="{{url('images/user/btn1.png')}}" alt="無料登録をする"></a></p></div>
+                <div><p class="btn"><button type="submit" id="submit2" style="padding:0; border: none; cursor: pointer;"><img src="{{url('images/user/btn1.png')}}" alt="無料登録をする"></button></a></p></div>
             </div>
         </div>
+        </form>
     </article>
     <!-- end content_secon -->
     <h2 class="text_center bgtit4 dis_pc lh00"><img src="{{url('images/user/tit4.png')}}" alt="スマオク！プレオープン時お客様の声"></h2>
@@ -297,6 +305,9 @@
     <p class="text_center arrbg"><img src="{{url('')}}/images/user/arr2_sp.png" alt="arrow"></p>
     <!-- end content_secon -->
     <article class="position">
+        <form id="FormRegisterSeller3" method="post">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+         {{ csrf_field() }}
         <div class="boxteltop">
             <h3 class="dis_pc text_center"><img src="{{url('images/user/titboxtel.png')}}" alt="あなたの愛車、とりあえず価格だけチェック！"></h3>
             <h3 class="dis_sp text_center"><img src="{{url('images/user/titboxtel_sp.png')}}" alt="あなたの愛車、とりあえず価格だけチェック！"></h3>
@@ -304,37 +315,37 @@
                 <table class="tbstyle">
                     <tr>
                         <th><span class="hinsu">必須</span> メーカー</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_maker" id="seller_maker3" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                     <tr>
                         <th><span class="hinsu">必須</span> 車種</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_car_type" id="seller_car_type3" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 年式</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_date" id="seller_date3" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 走行距離</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_mileage" id="seller_mileage3" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                 </table>
                 <table class="tbstyle">
                     <tr>
                         <th><span class="hinsu">必須</span> TEL</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）09012345678"></td>
+                        <td><input type="text" value="" name="seller_tel" id="seller_tel3" size="" tabindex="" accesskey="" placeholder="例）09012345678" ></td>
                     </tr>
                     <tr>
                         <th><span class="hinsu">必須</span> 名前</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）山田　太郎"></td>
+                        <td><input type="text" value="" name="seller_name" id="seller_name3" size="" tabindex="" accesskey="" placeholder="例）山田　太郎"></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 都道府県</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><input type="text" value="" name="seller_zone" id="seller_zone3" size="" tabindex="" accesskey="" placeholder=""></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> メール</th>
-                        <td><input type="text" value="" name="" id="" size="" tabindex="" accesskey="" placeholder="例）yamada@smart.com"></td>
+                        <td><input type="text" value="" name="seller_email" id="seller_email3" size="" tabindex="" accesskey="" placeholder="例）yamada@smart.com"></td>
                     </tr>
                 </table>
             </div>
@@ -344,23 +355,25 @@
                     <p class="dis_pc"><img src="{{url('images/user/txttelhd.png')}}" alt="tel:06-7670-7744"></p>
                     <p class="dis_sp"><a href="tel:06-7670-7744"><img src="{{url('images/user/txttelhd.png')}}" alt="tel:06-7670-7744"></a></p>
                 </div>
-                <div><p class="btn"><a href="#"><img src="{{url('images/user/btn1.png')}}" alt="無料登録をする"></a></p></div>
+                <div><p class="btn"><button type="submit" style="padding:0; border: none; cursor: pointer;" id="submit3"><img src="{{url('images/user/btn1.png')}}" alt="無料登録をする"></button></p></div>
             </div>
         </div>
+        </form>
     </article>
+<script src="{{url('js/user/user.js')}}" type="text/javascript"></script>
 @endsection
-    @section('script')
-        <script src="{{url('js/common.js')}}" type="text/javascript"></script>
-        <script type="text/javascript">
-            $(window).load(function() {
-                var viewportWidth = $(window).width();
-                if (viewportWidth < 769) {
-                    $(".boxfaq dt").addClass("ac_title");
-                    $(".boxfaq dd").addClass("ac_con");
-                } else {
-                    $(".boxfaq dt").removeClass("ac_title");
-                    $(".boxfaq dd").removeClass("ac_con");
-                }
-            });
-        </script>
+@section('script')
+    <script src="{{url('js/common.js')}}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(window).load(function() {
+            var viewportWidth = $(window).width();
+            if (viewportWidth < 769) {
+                $(".boxfaq dt").addClass("ac_title");
+                $(".boxfaq dd").addClass("ac_con");
+            } else {
+                $(".boxfaq dt").removeClass("ac_title");
+                $(".boxfaq dd").removeClass("ac_con");
+            }
+        });
+    </script>
 @endsection

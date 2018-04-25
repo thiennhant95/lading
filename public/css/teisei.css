@@ -36,12 +36,12 @@ DIV.ui-datepicker-title select,
 /* 次へボタン
 */
 #ui-datepicker-div SPAN.ui-icon.ui-icon-circle-triangle-e{
-    background-image: url("/crm/img/c_right.png");
+    /*background-image: url("/crm/img/c_right.png");*/
 	position:relative;
 	left:14px;/* ポジション修正*/
 }
 #ui-datepicker-div .ui-widget-header .ui-icon {
-    background-image: url("/crm/img/c_left.png");
+    /*background-image: url("/crm/img/c_left.png");*/
 }
 
 .ui-icon-circle-triangle-e {
