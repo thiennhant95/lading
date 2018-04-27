@@ -1,6 +1,28 @@
 @extends('master')
 @section('content')
 <body id="wrapper" class="ld_page_com">
+<style>
+    .alert-minimalist {
+        background-color: rgb(241, 242, 240);
+        border-color: rgba(149, 149, 149, 0.3);
+        border-radius: 3px;
+        padding: 5px;
+
+    }
+    .alert-minimalist > [data-notify="icon"] {
+        height: 50px;
+        margin-right: 12px;
+    }
+    .alert-minimalist > [data-notify="title"] {
+        color: rgb(51, 51, 51);
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .alert-minimalist > [data-notify="message"] {
+        font-size: 17px;
+    }
+</style>
 <header>
     <div class="flexrowbetween hdtop main">
         <div class="logo"><a href="{{url('')}}/"><img src="{{url('')}}/images/common_img/logoLPcom.png" alt="スマオク！ ユーザ直取引 プロ査定員査定 業界初!？ 中古車オークションのビッグバンサイト！"></a></div>
@@ -28,11 +50,11 @@
                     <table class="tbstyle">
                         <tr>
                             <th>会社名 <span class="hinsu">必須</span></th>
-                            <td><input type="text" value="" name="company_name" id="company_name" size="" tabindex="" accesskey="" placeholder="" required></td>
+                            <td><input type="text" value="" name="name" id="company_name" size="" tabindex="" accesskey="" placeholder="" required></td>
                         </tr>
                         <tr>
                             <th>ご担当者 <span class="hinsu">必須</span></th>
-                            <td><input type="text" value="" name="contact_name" id="contact_name" size="" tabindex="" accesskey="" placeholder="" required></td>
+                            <td><input type="text" value="" name="contact_person" id="contact_name" size="" tabindex="" accesskey="" placeholder="" required></td>
                         </tr>
                         <tr>
                             <th>電話番号 <span class="hinsu">必須</span></th>
@@ -195,11 +217,11 @@
             <table class="tbstyle">
                 <tr>
                     <th>会社名 <span class="hinsu">必須</span></th>
-                    <td><input type="text" value="" name="company_name" id="company_name2" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input type="text" value="" name="name" id="company_name2" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th>ご担当者 <span class="hinsu">必須</span></th>
-                    <td><input type="text" value="" name="contact_name" id="contact_name2" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input type="text" value="" name="contact_person" id="contact_name2" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th>電話番号 <span class="hinsu">必須</span></th>
@@ -292,11 +314,11 @@
                 <table class="tbstyle">
                     <tr>
                         <th>会社名 <span class="hinsu">必須</span></th>
-                        <td><input type="text" value="" name="company_name" id="company_name3" size="" tabindex="" accesskey="" placeholder="" required></td>
+                        <td><input type="text" value="" name="name" id="company_name3" size="" tabindex="" accesskey="" placeholder="" required></td>
                     </tr>
                     <tr>
                         <th>ご担当者 <span class="hinsu">必須</span></th>
-                        <td><input type="text" value="" name="contact_name" id="contact_name3" size="" tabindex="" accesskey="" placeholder="" required></td>
+                        <td><input type="text" value="" name="contact_person" id="contact_name3" size="" tabindex="" accesskey="" placeholder="" required></td>
                     </tr>
                     <tr>
                         <th>電話番号 <span class="hinsu">必須</span></th>
@@ -311,6 +333,7 @@
             <div class="text_center"><p class="btndk"><button class="submit3" type="submit" style="padding:0; border: none;cursor: pointer;"><img src="{{url('images/company/btn1.png')}}" alt="無料登録をする"></button></p></div>
         </div>
     </form>
+    {{session('message')}};
     <div class="boxtel">
         <h3 class="text_bold fontyu text_center">サービス内容に関してご不明点がございましたら、<span>お電話またはメールにてお問合わせください。</span></h3>
         <div class="flexrowbetween">
@@ -322,6 +345,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="status_message" value="0">
 </article>
 @endsection
 @section('script')
@@ -338,5 +362,26 @@
             $(".boxfaq dd").removeClass("ac_con");
         }
     });
+
+    jQuery(document).ready( function(){
+        var message ='{{session('message')}}';
+        var status_message =$('#status_message').val();
+        if (message!='' && status_message ==0 )
+        {
+            $.notify({
+                icon: '{{url('images/company/check-circle-green-512.png')}}',
+                message: 'You have successfully registered! '
+            }, {
+                type: 'minimalist',
+                delay: 5000,
+                icon_type: 'image',
+                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                '<img data-notify="icon" class="img-circle pull-left">' +
+                '<span data-notify="message">{2}</span>' +
+                '</div>'
+            });
+        }
+    } );
+
 </script>
 @endsection

@@ -84,5 +84,6 @@ define('SEO_KEYWORDS','CAR');
 <script type="text/javascript" src="{{ url('js/lightbox.js')}}"></script>
 <script type="text/javascript" src="{{ url('js/jquery.validate-1.14.0.min.js')}}"></script>
 <script type="text/javascript" src="{{ url('js/jquery-validate.bootstrap-tooltip.js')}}"></script>
+<script type="text/javascript" src="{{ url('js/bootstrap-notify.min.js')}}"></script>
 </body>
 </html>

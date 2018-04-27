@@ -310,31 +310,47 @@
                 <tr>
                     <th><span class="hinsu">必須</span> メーカー名</th>
                     <td>
-                        <select name="maker" id="" class="w60per" required>
-                            <option>Honda</option>
-                            <option>Yamaha</option>
-                            <option>Huynhdai</option>
-                            <option>BMW</option>
+                        <select name="maker" id="infor_maker_id" class="w60per" required>
+                            <option value="">----------</option>
+                        @foreach($list_maker as $item)
+                                <option  value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 車種名</th>
                     <td>
-                        <select name="model_name" id="" class="w60per" required>
-                            <option>Honda</option>
-                            <option>Yamaha</option>
-                            <option>Huynhdai</option>
-                            <option>BMW</option>
+                        <select name="model_name" id="infor_car_id" class="w60per" required>
+                            <option value="">----------</option>
+                            @foreach($list_car as $item)
+                                <option  value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 年式</th>
-                    <td>
-                        {{--<select name="model_year" id="" class="w60per" required>--}}
-                        {{--</select>--}}
-                    <input class="w60per model_year" type="text" name="model_year" id="model_year" size="" tabindex="" accesskey="" placeholder="" required>
+                    <td class="flexrowbetween flex_alignstart flex_aligncenter">
+
+                        <div>
+                            <select class="w135" id="model_year_era">
+                                <option value="H" selected="selected">H</option>
+                                <option value="S">S</option>
+                            </select>
+                        </div>
+                        <div class="w20">
+                            <input class="w50" type="text" value="11" /> 年
+                        </div>
+                        <div class="w20">
+                            <input class="w50" id="" type="text" value="11" /> 月
+                        </div>
+                        <div>
+                            <div class="checkbox">
+                                <input type="hidden" name="data[OwnCar][about_model_year]" id="about_model_year_" value="0" />
+                                <input type="checkbox" name="data[OwnCar][about_model_year]" id="about_model_year" value="1" /> くらい
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>

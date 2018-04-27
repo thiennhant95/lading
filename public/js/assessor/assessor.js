@@ -87,10 +87,14 @@ $(document).ready(function() {
         var year = $("#dateBirthYYYY").val(); //why not $(element) ?!?
         return (new Date()).getFullYear() >= parseInt(year, 10);
     }, "Invalid year");
+    jQuery.validator.addMethod("zip_code", function(value, element) {
+        value = value.replace(/\s+/g, "");
+        return this.optional(element) || value.match(/^([0-9]{3})(-[0-9]{4})?$/i);
+    }, "Please specify a valid zip code");
     $("#AssessorId").validate({
         rules: {
             'name': {required: true},
-            'zip_code': {required: true},
+            'zip_code': {required: true,zip_code:true},
             'phone': {required: true, regex_phone: true},
             'email': {required: true, email: true},
             'model_year':{required:true},
@@ -99,27 +103,10 @@ $(document).ready(function() {
             'year_end':{required:true},
             'month_end':{required:true},
             'day_end':{required:true},
-
         }, tooltip_options: {}
     });
 });
 
-// $(document).ready(function() {
-//         $("#zip_code").blur(function(){
-//             setTimeout(function(){
-//                 var erea =$('#erea').val();
-//                 var address=$('#address').val('1');
-//                 if(address=="")
-//                     alert('dsdsd');
-//                 else
-//                     alert('av');
-//             }, 2000);
-//         });
-//
-// });
-// $(document).ready(function() {
-//     $('#model_year').datepicker({ dateFormat: 'yy'});
-// });
 $(function(){
     var year=new Date().getFullYear();
     $('.model_year').datepicker({
@@ -201,3 +188,25 @@ $(document).ready(function(){
         }
     });
 });
+
+//onchange maker
+$("#infor_maker_id").change(function(){
+    var maker_id = $(this).val();
+    $.ajax({
+        url:'/assessor/get-make-car',
+        // url:'http://llc.jp/api/car/get-by-maker',
+        data:{maker_id:maker_id},
+        method:'GET',
+        dataType:'json',
+        success:function(data){
+            var html = '<option value="">----------</option>';
+            if(data != null && data.length > 0){
+                for(var i=0;i<data.length;i++){
+                    html += '<option value="'+data[i]['id']+'">'+data[i]['name']+'</option>';
+                }
+            }
+            console.log(html);
+            $("#infor_car_id").html(html);
+        }
+    })
+})

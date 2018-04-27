@@ -23,8 +23,8 @@ Route::get('user', function (){
 Route::get('estimate', function (){
     return view('estimate');
 });
-Route::get('assessor', function (){
-    return view('assessor');
-});
+Route::get('assessor','AssessorController@index');
+Route::get('/assessor/get-make-car','AssessorController@list_maker');
+Route::post('/company/insert','TraderController@insert');
 
 
