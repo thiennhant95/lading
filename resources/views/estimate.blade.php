@@ -1,5 +1,11 @@
 @extends('master')
 @section('content')
+<?php 
+if(session()->has('name') === false && session()->has('phone') === false)
+{
+    echo "<script>window.location='user'</script>";
+}
+?>
 <body id="wrapper" class="layoutsp">
 <header>
     <div class="main clearfix">
@@ -15,9 +21,6 @@
 <!-- End Top-->
 <section>
     <article class="assessor estimate">
-        <form id="RegisterEstimate">
-            <meta name="csrf-token" content="{{ csrf_token() }}">
-         {{ csrf_field() }}
         <ul class="crumb">
             <li class="home"><a href="{{ url('') }}">TOP</a></li>
             <li>想定価格</li>
@@ -64,19 +67,18 @@
             <p>●各業者からは営業電話はかかってきませんので安心ください</p>
         </div> -->
         
-        
         <h3 class="mt8per w100per"><img src="{{ url('images/estimate/imgtxt3.png') }}" alt="だったら・・・登録簡単！！　完全無料！！スマオク！に出品して各社の買取金額を確認するしかない！" class="w100per"></h3>
         
         <div class="clearfix boxboder mt6per">
             <div class="clearfix">
                 <div class="pull_left w48">
                     <h4 class="text_center"><img src="{{ url('images/estimate/txtbtn1.png') }}" alt="完全無料！！　3STEPで申込完了！！"></h4>
-                    <p class="text_center w96"><a href="#"><img src="./images/estimate/btn1a.png" alt="登録代行サービスを利用して申し込む"></a></p>
+                    <p class="text_center w96"><button type="button" id="button-red" style="padding:0; border: none; cursor: pointer;"><img src="{{ url('images/estimate/btn1a.png') }}" alt="登録代行サービスを利用して申し込む"></button></p>
 
                 </div>
                 <div class="pull_right w48">
                     <h4 class="text_center"><img src="{{ url('images/estimate/txtbtn2.png') }}" alt="簡単登録！！　5STEPで直ぐにオークション開始"></h4>
-                    <p class="text_center w96"><a href="{{ url('assessor') }}"><img src="{{ url('images/estimate/btn2a.png') }}" alt="ご自身で車両情報を登録して申し込む"></a></p>
+                    <p class="text_center w96"><button type="button" id="button-blue" style="padding:0; border: none; cursor: pointer;"><img src="{{ url('images/estimate/btn2a.png') }}" alt="ご自身で車両情報を登録して申し込む"></button></p>
                 </div>
             </div>
             <p class="mt2per">※地域や日程によっては登録代行サービスをお申込みいただけない場合がございます。予めご了承ください。</p>
@@ -87,7 +89,9 @@
         <p class="text_center">※地域や日程によっては登録代行サービスをお申込みい<br>ただけない場合がございます。予めご了承ください。</p>
         <div class="txtlinebl"><h4 class="text_bold">簡単登録！！　5STEPで直ぐにオークション開始</h4></div>
         <p class="text_center mt2per"><a href="../assessor/"><img src="./images/estimate/btn2.png" alt="ご自身で車両情報を登録して申し込む"></a></p> -->
-        
+        <form id="RegisterEstimateAssessor" method="post" style="display: none">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+         {{ csrf_field() }}
         <div class="boxstep boxstep1 mt8per">
             <div class="titline1 titline2">
                 <h3 class="fontyu"><span class="text_bold colop">STEP1</span> お車を置かれている場所を登録する</h3>
@@ -102,7 +106,10 @@
                     <th class="pl00">都道府県：</th>
                     <td>
                         <select name="zone1" id="zone1">
-                            
+                        <option value=""></option>
+                        @foreach($list_zones as $zones)
+                            <option value="{{ $zones->id }}">{{ $zones->name }}</option>
+                        @endforeach
                         </select>
                     </td>
                 </tr>
@@ -110,25 +117,45 @@
                     <th class="pl00">市町村：</th>
                     <td>
                         <select name="erea1" id="erea1">
-                            
+                        <option value=""></option>
+                        @foreach($list_ereas as $ereas)
+                            <option value="{{ $ereas->id }}" class="erea-{{ $ereas->zone_id }} erea" style="display:none">{{ $ereas->name }}</option>
+                        @endforeach
                         </select>
                     </td>
                 </tr>
             </table>
         </div>
-        
         <div class="boxstep">
             <div class="titline1 titline2">
                 <h3 class="fontyu"><span class="text_bold colop">STEP2</span> 登録代行サービスの種類を選択する</h3>
             </div>
-            <p><label><input type="radio" name="step2">出張登録代行サービスを申し込む（※お客様のご自宅まで担当者が伺います）</label></p>
-            <p class="mt3per"><label><input type="radio" name="step2">持込登録代行サービスを申し込む（※お近くの加盟店までお客様自身でお車をお持ちこんでいただきます）</label></p>
+            <p><label><input type="radio" name="step2" class="step2" value="0">出張登録代行サービスを申し込む（※お客様のご自宅まで担当者が伺います）</label></p>
+            <p class="mt3per"><label><input type="radio" name="step2" class="step2" value="1">持込登録代行サービスを申し込む（※お近くの加盟店までお客様自身でお車をお持ちこんでいただきます）</label></p>
         </div>
         
         <div class="boxstep boxstep3">
             <div class="titline1 titline2">
                 <h3 class="fontyu"><span class="text_bold colop">STEP3</span> 希望日を登録する</h3>
             </div>
+            <?php
+                $year_curent=date("Y");
+                $year= array();
+                for ($i=0;$i<=50;$i++)
+                {
+                    $year[]=$year_curent++;
+                }
+                $month= array();
+                for ($i=1;$i<=12;$i++)
+                {
+                    $month[]=$i;
+                }
+                $day= array();
+                for ($i=1;$i<=31;$i++)
+                {
+                    $day[]=$i;
+                }
+            ?>
             <table class="tbstep1 tbsteptime">
                 <tr>
                     <th class="pl00 vertitop">・第1希望日：[年月日]</th>
@@ -136,17 +163,23 @@
                         <ul class="flexrowbetween daytime">
                             <li>
                                 <select name="year1" id="year1">
-                                    
+                                    @foreach($year as $row_year)
+                                    <option value="{{ $row_year }}">{{ $row_year }}</option>
+                                    @endforeach
                                 </select> 年
                             </li>
                             <li>
                                 <select name="month1" id="month1">
-                                    
+                                     @foreach($month as $row_month)
+                                    <option value="{{ $row_month }}">{{ $row_month }}</option>
+                                    @endforeach
                                 </select> 月
                             </li>
                             <li>
                                 <select name="date1" id="date1">
-                                    
+                                    @foreach ($day as $row_day):
+                                    <option value="{{ $row_day }}">{{ $row_day }}</option>
+                                    @endforeach
                                 </select> 日
                             </li>
                         </ul>
@@ -155,10 +188,10 @@
                 <tr>
                     <th class="text_right vertitop">[時間帯]</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="" id="" name="time1" tabindex="" accesskey=""><span>指定なし</span></label>
-                        <label><input type="radio" value="" class="time1" tabindex="" accesskey="" name="time1"><span>9:00～12:00</span></label>
-                        <label><input type="radio" value="" class="time1" tabindex="" accesskey="" name="time1"><span>12:00～15:00</span></label>
-                        <label><input type="radio" value="" class="time1" tabindex="" accesskey="" name="time1"><span>15:00～18:00</span></label>
+                        <p class="radio"><label><input type="radio" value="0" id="" name="time1" tabindex="" accesskey=""><span>指定なし</span></label>
+                        <label><input type="radio" value="1" class="time1" name="time1"><span>9:00～12:00</span></label>
+                        <label><input type="radio" value="2" class="time1" name="time1"><span>12:00～15:00</span></label>
+                        <label><input type="radio" value="3" class="time1" name="time1"><span>15:00～18:00</span></label>
                         </p>
                     </td>
                 </tr>
@@ -168,17 +201,23 @@
                         <ul class="flexrowbetween daytime">
                             <li>
                                 <select name="year2" id="year2">
-                                    
+                                    @foreach($year as $row_year)
+                                    <option value="{{ $row_year }}">{{ $row_year }}</option>
+                                    @endforeach
                                 </select> 年
                             </li>
                             <li>
                                 <select name="month2" id="month2">
-                                    
+                                     @foreach($month as $row_month)
+                                    <option value="{{ $row_month }}">{{ $row_month }}</option>
+                                    @endforeach
                                 </select> 月
                             </li>
                             <li>
                                 <select name="date2" id="date2">
-                                    
+                                    @foreach ($day as $row_day):
+                                    <option value="{{ $row_day }}">{{ $row_day }}</option>
+                                    @endforeach
                                 </select> 日
                             </li>
                         </ul>
@@ -187,10 +226,10 @@
                 <tr>
                     <th class="text_right vertitop">[時間帯]</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="" id="" name="time2" tabindex="" accesskey=""><span>指定なし</span></label>
-                        <label><input type="radio" value="" class="time2" tabindex="" accesskey="" name="time2"><span>9:00～12:00</span></label>
-                        <label><input type="radio" value="" class="time2" tabindex="" accesskey="" name="time2"><span>12:00～15:00</span></label>
-                        <label><input type="radio" value="" class="time2" tabindex="" accesskey="" name="time2"><span>15:00～18:00</span></label>
+                        <p class="radio"><label><input type="radio" value="0" id="" name="time2" tabindex="" accesskey=""><span>指定なし</span></label>
+                        <label><input type="radio" value="1" class="time2" tabindex="" accesskey="" name="time2"><span>9:00～12:00</span></label>
+                        <label><input type="radio" value="2" class="time2" tabindex="" accesskey="" name="time2"><span>12:00～15:00</span></label>
+                        <label><input type="radio" value="3" class="time2" tabindex="" accesskey="" name="time2"><span>15:00～18:00</span></label>
                         </p>
                     </td>
                 </tr>
@@ -200,17 +239,23 @@
                         <ul class="flexrowbetween daytime">
                             <li>
                                 <select name="year3" id="year3">
-                                    
+                                    @foreach($year as $row_year)
+                                    <option value="{{ $row_year }}">{{ $row_year }}</option>
+                                    @endforeach
                                 </select> 年
                             </li>
                             <li>
                                 <select name="month3" id="month3">
-                                    
+                                     @foreach($month as $row_month)
+                                    <option value="{{ $row_month }}">{{ $row_month }}</option>
+                                    @endforeach
                                 </select> 月
                             </li>
                             <li>
                                 <select name="date3" id="date3">
-                                    
+                                    @foreach ($day as $row_day):
+                                    <option value="{{ $row_day }}">{{ $row_day }}</option>
+                                    @endforeach
                                 </select> 日
                             </li>
                         </ul>
@@ -219,22 +264,38 @@
                 <tr>
                     <th class="text_right vertitop">[時間帯]</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="" id="" name="time3" tabindex="" accesskey=""><span>指定なし</span></label>
-                        <label><input type="radio" value="" class="time3" tabindex="" accesskey="" name="time3"><span>9:00～12:00</span></label>
-                        <label><input type="radio" value="" class="time3" tabindex="" accesskey="" name="time3"><span>12:00～15:00</span></label>
-                        <label><input type="radio" value="" class="time3" tabindex="" accesskey="" name="time3"><span>15:00～18:00</span></label>
+                        <p class="radio"><label><input type="radio" value="0" id="" name="time3" tabindex="" accesskey=""><span>指定なし</span></label>
+                        <label><input type="radio" value="1" class="time3" tabindex="" accesskey="" name="time3"><span>9:00～12:00</span></label>
+                        <label><input type="radio" value="2" class="time3" tabindex="" accesskey="" name="time3"><span>12:00～15:00</span></label>
+                        <label><input type="radio" value="3" class="time3" tabindex="" accesskey="" name="time3"><span>15:00～18:00</span></label>
                         </p>
                     </td>
                 </tr>
             </table>
         </div>
+         <div class="titpen"><h3 class="fontyu">利用規約</h3></div>
+        <div class="boxtxt">
+            <p class="text_justify">テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。</p>
+        </div>
+        
+        <div class="titpen"><h3 class="fontyu">個人情報の取扱</h3></div>
+        <div class="boxtxt">
+            <p class="text_justify">テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。テキスチが入ります。</p>
+        </div>
+        
+        <p class="text_center"><label><input type="checkbox" name="accept1" id="accept1">上記、利用規約および個人情報の取扱について確認しました。</label></p>
+        <div class="btnbtom-estimate text_center"><button type="submit" id="submit2" class="btnbtom-estimate" style="padding:0; border: none;  margin:1.5% 0; color: #fff; font-weight: bold">上記利用規約および個人情報の取扱に同意して<span>サービスを利用する</span></button></div>
+        <!-- end clearfix -->
+    </form>
         <!-- Hiển thị khi chiếc xe tương ứng không tồn tại -->
-        <div class="boxalert">
+        <div class="boxalert" style="display: none">
             <img src="{{ url('images/estimate/imgperson.png') }}" alt="">
             <p class="txt_red text_center">登録いただいた条件で一致する想定価格は見つかりませんでした。<br>想定価格につきましては、運営事務局からのご連絡をお待ちください。</p>
         </div>
         <!-- Hiển thị khi chiếc xe tương ứng không tồn tại -->
-        
+        <form id="RegisterEstimate" style="display: none">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+         {{ csrf_field() }}
         <div class="boxstep boxstep1 mt8per">
             <div class="titline1">
                 <h3 class="fontyu"><span class="text_bold colop">STEP1</span> お車を置かれている場所を登録する</h3>
@@ -249,7 +310,10 @@
                     <th class="pl00">都道府県：</th>
                     <td>
                         <select name="zone2" id="zone2">
-                            
+                            <option value=""></option>
+                            @foreach($list_zones as $zones)
+                                <option value="{{ $zones->id }}">{{ $zones->name }}</option>
+                            @endforeach
                         </select>
                     </td>
                 </tr>
@@ -257,7 +321,10 @@
                     <th class="pl00">市町村：</th>
                     <td>
                         <select name="erea2" id="erea2">
-                            
+                            <option value=""></option>
+                            @foreach($list_ereas as $ereas)
+                                <option value="{{ $ereas->id }}" class="erea-{{ $ereas->zone_id }} erea" style="display:none">{{ $ereas->name }}</option>
+                            @endforeach
                         </select>
                     </td>
                 </tr>
@@ -462,25 +529,25 @@
                 <tr>
                     <th><span class="hinsu">必須</span> 保証書</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="" class="issue" name="issue" tabindex="" accesskey=""><span>可</span></label>
-                        <label><input type="radio" value="" class="issue" name="issue" tabindex="" accesskey=""><span>不可</span></label>
-                        <label><input type="radio" value="" class="issue" name="issue" tabindex="" accesskey=""><span>未確認</span></label></p>
+                        <p class="radio"><label><input type="radio" value="0" class="issue" name="issue" tabindex="" accesskey=""><span>可</span></label>
+                        <label><input type="radio" value="1" class="issue" name="issue" tabindex="" accesskey=""><span>不可</span></label>
+                        <label><input type="radio" value="2" class="issue" name="issue" tabindex="" accesskey=""><span>未確認</span></label></p>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> メータ交換履歴</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="" class="issue1" name="issue1" tabindex="" accesskey=""><span>有</span></label>
-                        <label><input type="radio" class="issue1" id="" name="issue1" tabindex="" accesskey=""><span>無</span></label>
-                        <label><input type="radio" class="issue1" id="" name="issue1" tabindex="" accesskey=""><span>不明</span></label></p>
+                        <p class="radio"><label><input type="radio" value="0" class="issue1" name="issue1" tabindex="" accesskey=""><span>有</span></label>
+                        <label><input type="radio" value="1" class="issue1" id="" name="issue1" tabindex="" accesskey=""><span>無</span></label>
+                        <label><input type="radio" value="2" class="issue1" id="" name="issue1" tabindex="" accesskey=""><span>不明</span></label></p>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 事故歴</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="" class="issue2" name="issue2" tabindex="" accesskey=""><span>有</span></label>
-                        <label><input type="radio" value="" class="issue2" name="issue2" tabindex="" accesskey=""><span>無</span></label>
-                        <label><input type="radio" value="" class="issue2" name="issue2" tabindex="" accesskey=""><span>不明</span></label></p>
+                        <p class="radio"><label><input type="radio" value="0" class="issue2" name="issue2" tabindex="" accesskey=""><span>有</span></label>
+                        <label><input type="radio" value="1" class="issue2" name="issue2" tabindex="" accesskey=""><span>無</span></label>
+                        <label><input type="radio" value="2" class="issue2" name="issue2" tabindex="" accesskey=""><span>不明</span></label></p>
                     </td>
                 </tr>
                 <tr>
@@ -518,18 +585,24 @@
                     <td>
                         <ul class="flexrowbetween daytime">
                             <li>
-                                <select name="" id="yeartime">
-                                    
+                                <select name="yeartime" id="yeartime">
+                                    @foreach($year as $row_year)
+                                    <option value="{{ $row_year }}">{{ $row_year }}</option>
+                                    @endforeach
                                 </select> 年
                             </li>
                             <li>
-                                <select name="" id="monthtime">
-                                    
+                                <select name="monthtime" id="monthtime">
+                                     @foreach($month as $row_month)
+                                    <option value="{{ $row_month }}">{{ $row_month }}</option>
+                                    @endforeach
                                 </select> 月
                             </li>
                             <li>
-                                <select name="" id="datetime">
-                                    
+                                <select name="datetime" id="datetime">
+                                    @foreach ($day as $row_day):
+                                    <option value="{{ $row_day }}">{{ $row_day }}</option>
+                                    @endforeach
                                 </select> 日
                             </li>
                         </ul>
@@ -554,6 +627,30 @@
         </form>
     </article>
 </section>
+<script>
+    $("#button-red").click(function(){
+        $("#RegisterEstimate").css("display","none");
+        $("#RegisterEstimateAssessor").css("display","block");
+    })
+    $("#button-blue").click(function(){
+        $("#RegisterEstimate").css("display","block");
+        $("#RegisterEstimateAssessor").css("display","none");
+    })
+    $("#zone1").change(function()
+    {
+        var zone = $(this).val();
+        $(".erea").css("display","none");
+        $(".erea-"+zone).css("display","block");
+        $("#erea1").val('');
+    })
+    $("#zone2").change(function()
+    {
+        var zone = $(this).val();
+        $(".erea").css("display","none");
+        $(".erea-"+zone).css("display","block");
+        $("#erea2").val('');
+    })
+</script>
 <script src="{{url('js/estimate/estimate.js')}}" type="text/javascript"></script>
 @endsection
 @section('script')

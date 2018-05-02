@@ -1,10 +1,15 @@
 $(function() {
+  $.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
     jQuery.validator.addMethod("phone", function(value, element) {
     value = value.replace(/\s+/g, ""); 
     return this.optional(element) || value.length > 9 &&
         value.match(/\(?([0-9]{2})\)?([ .-]?)([0-9]{4})\2([0-9]{4})/);
 }, "Please specify a valid phone number");
-    $("#FormRegisterSeller").validate({
+    $("#FormRegisterSeller1").validate({
     rules:
     {
       "seller_name":{
@@ -98,18 +103,17 @@ $(function() {
         if(seller_maker != '' && seller_car_type != '' && seller_tel != '' && seller_name !='')
         {
             $.ajax({
-              url: 'http://llc.jp/api/seller/add',
-              dataType: 'json',
+              url: 'user/set-info',
+              dataType: 'text',
               type: 'post',
               headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
               contentType: 'application/x-www-form-urlencoded',
-              data: {seller_maker: seller_maker, seller_car_type: seller_car_type, seller_date: seller_date, seller_mileage: seller_mileage, seller_tel: seller_tel, seller_name: seller_name, seller_zone: seller_zone, seller_email: seller_email, fuel_csrf_token: current_token},
+              data: {makers: seller_maker, cars: seller_car_type, year: seller_date, mileage: seller_mileage, phone: seller_tel, name: seller_name, zone: seller_zone, email: seller_email, fuel_csrf_token: current_token},
               success: function( data, textStatus, jQxhr ){
                   var result = JSON.parse(data);
                   console.log(result);
-                  //$(".message").html(result['messages']);
               },
               error: function( jqXhr, textStatus, errorThrown ){
                   console.log( errorThrown );
@@ -134,18 +138,17 @@ $(function() {
         if(seller_maker != '' && seller_car_type != '' && seller_tel != '' && seller_name !='')
         {
             $.ajax({
-              url: 'http://llc.jp/api/seller/add',
-              dataType: 'json',
+              url: 'user/set-info',
+              dataType: 'text',
               type: 'post',
               headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
               contentType: 'application/x-www-form-urlencoded',
-              data: {seller_maker: seller_maker, seller_car_type: seller_car_type, seller_date: seller_date, seller_mileage: seller_mileage, seller_tel: seller_tel, seller_name: seller_name, seller_zone: seller_zone, seller_email: seller_email, fuel_csrf_token: current_token},
+              data: {makers: seller_maker, cars: seller_car_type, year: seller_date, mileage: seller_mileage, phone: seller_tel, name: seller_name, zone: seller_zone, email: seller_email, fuel_csrf_token: current_token},
               success: function( data, textStatus, jQxhr ){
                   var result = JSON.parse(data);
                   console.log(result);
-                  //$(".message").html(result['messages']);
               },
               error: function( jqXhr, textStatus, errorThrown ){
                   console.log( errorThrown );
@@ -170,18 +173,17 @@ $(function() {
         if(seller_maker != '' && seller_car_type != '' && seller_tel != '' && seller_name !='')
         {
             $.ajax({
-              url: 'http://llc.jp/api/seller/add',
-              dataType: 'json',
+              url: 'user/set-info',
+              dataType: 'text',
               type: 'post',
               headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
               contentType: 'application/x-www-form-urlencoded',
-              data: {seller_maker: seller_maker, seller_car_type: seller_car_type, seller_date: seller_date, seller_mileage: seller_mileage, seller_tel: seller_tel, seller_name: seller_name, seller_zone: seller_zone, seller_email: seller_email, fuel_csrf_token: current_token},
+              data: {makers: seller_maker, cars: seller_car_type, year: seller_date, mileage: seller_mileage, phone: seller_tel, name: seller_name, zone: seller_zone, email: seller_email, fuel_csrf_token: current_token},
               success: function( data, textStatus, jQxhr ){
                   var result = JSON.parse(data);
                   console.log(result);
-                  //$(".message").html(result['messages']);
               },
               error: function( jqXhr, textStatus, errorThrown ){
                   console.log( errorThrown );

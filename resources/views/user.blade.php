@@ -1,7 +1,6 @@
 @extends('master')
 @section('content')
     <body id="wrapper" class="ld_page_com ld_page_user">
-    <!--<?php //echo DispHeader();?>-->
     <header>
         <div class="flexrowbetween hdtop main">
             <div class="logo"><a href="../"><img src="{{url('images/common_img/logoLPuser.png')}}" alt="スマオク！ 競争見積り オークション 業界初!？ 中古車買取のビッグバンサイト！"></a></div>
@@ -31,11 +30,21 @@
                     <table class="tbstyle">
                     <tr>
                         <th><span class="hinsu">必須</span> メーカー</th>
-                        <td><input type="text" value="" name="seller_maker" id="seller_maker" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_maker" id="seller_maker">
+                        <option value=""></option>
+                        @foreach($list_makers as $makers)
+                            <option value="{{ $makers->id }}">{{ $makers->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="hinsu">必須</span> 車種</th>
-                        <td><input type="text" value="" name="seller_car_type" id="seller_car_type" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_car_type" id="seller_car_type">
+                        <option value=""></option>
+                        @foreach($list_cars as $cars)
+                            <option value="{{ $cars->id }}" class="car-{{ $cars->maker_id }} car" style="display: none">{{ $cars->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 年式</th>
@@ -57,7 +66,12 @@
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 都道府県</th>
-                        <td><input type="text" value="" name="seller_zone" id="seller_zone" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_zone" id="seller_zone">
+                        <option value=""></option>
+                        @foreach($list_zones as $zones)
+                            <option value="{{ $zones->id }}">{{ $zones->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> メール</th>
@@ -202,11 +216,21 @@
                 <table class="tbstyle">
                     <tr>
                         <th><span class="hinsu">必須</span> メーカー</th>
-                        <td><input type="text" value="" name="seller_maker" id="seller_maker2" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_maker" id="seller_maker2">
+                        <option value=""></option>
+                        @foreach($list_makers as $makers)
+                            <option value="{{ $makers->id }}">{{ $makers->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="hinsu">必須</span> 車種</th>
-                        <td><input type="text" value="" name="seller_car_type" id="seller_car_type2" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_car_type" id="seller_car_type2">
+                        <option value=""></option>
+                        @foreach($list_cars as $cars)
+                            <option value="{{ $cars->id }}">{{ $cars->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 年式</th>
@@ -228,7 +252,12 @@
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 都道府県</th>
-                        <td><input type="text" value="" name="seller_zone" id="seller_zone2" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_zone" id="seller_zone2">
+                        <option value=""></option>
+                        @foreach($list_zones as $zones)
+                            <option value="{{ $zones->id }}">{{ $zones->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> メール</th>
@@ -242,7 +271,7 @@
                     <p class="dis_pc"><img src="{{url('images/user/txttelhd.png')}}" alt="tel:06-7670-7744"></p>
                     <p class="dis_sp"><a href="tel:06-7670-7744"><img src="{{url('images/user/txttelhd.png')}}." alt="tel:06-7670-7744"></a></p>
                 </div>
-                <div><p class="btn"><button type="submit" id="submit2" style="padding:0; border: none; cursor: pointer;"><img src="{{url('images/user/btn1.png')}}" alt="無料登録をする"></button></a></p></div>
+                <div><p class="btn"><button type="submit" id="submit2" style="padding:0; border: none; cursor: pointer;"><img src="{{url('images/user/btn1.png')}}" alt="無料登録をする"></button></p></div>
             </div>
         </div>
         </form>
@@ -315,11 +344,21 @@
                 <table class="tbstyle">
                     <tr>
                         <th><span class="hinsu">必須</span> メーカー</th>
-                        <td><input type="text" value="" name="seller_maker" id="seller_maker3" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_maker" id="seller_maker3">
+                        <option value=""></option>
+                        @foreach($list_makers as $makers)
+                            <option value="{{ $makers->id }}">{{ $makers->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="hinsu">必須</span> 車種</th>
-                        <td><input type="text" value="" name="seller_car_type" id="seller_car_type3" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_car_type" id="seller_car_type3">
+                        <option value=""></option>
+                        @foreach($list_cars as $cars)
+                            <option value="{{ $cars->id }}">{{ $cars->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 年式</th>
@@ -341,7 +380,12 @@
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> 都道府県</th>
-                        <td><input type="text" value="" name="seller_zone" id="seller_zone3" size="" tabindex="" accesskey="" placeholder=""></td>
+                        <td><select name="seller_zone" id="seller_zone3">
+                        <option value=""></option>
+                        @foreach($list_zones as $zones)
+                            <option value="{{ $zones->id }}">{{ $zones->name }}</option>
+                        @endforeach
+                        </select></td>
                     </tr>
                     <tr>
                         <th><span class="ninni">任意</span> メール</th>
@@ -360,6 +404,15 @@
         </div>
         </form>
     </article>
+<script>
+    $("#seller_maker").change(function()
+    {
+        var car = $(this).val();
+        $(".car").css("display","none");
+        $(".car-"+car).css("display","block");
+        $("#seller_car_type").val('');
+    })
+</script>
 <script src="{{url('js/user/user.js')}}" type="text/javascript"></script>
 @endsection
 @section('script')

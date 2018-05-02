@@ -22,80 +22,98 @@ class AssessorController extends Controller
     function index()
     {
         $data['list_maker']=$this->list_maker();
-        $data['list_car']=$this->list_maker();
+        $data['list_car']=$this->list_car();
+        $data['list_zone']=$this->getzonelp();
+        $data['list_erea']=$this->geterealp();
+        $data['transfer_data_list']=$this->get_transfer_info();
         return view('assessor',$data);
     }
     public function list_maker()
     {
-        $url=$this->url.'maker/get-list';
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept:application/json, Content-Type:application/json']);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        $output=curl_exec($ch);
-        curl_close($ch);
-        return json_decode($output);
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $this->url.'maker/get-list');
+        $output['status']=$res->getStatusCode();
+        $output['type']= $res->getHeaderLine('content-type');
+        $output['data']=$res->getBody();
+        return json_decode($output['data']);
     }
 
     public function list_car()
     {
-        $url=$this->url.'car/get-list';
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept:application/json, Content-Type:application/json']);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        $output=curl_exec($ch);
-        curl_close($ch);
-        return json_decode($output);
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $this->url.'car/get-list');
+        $output['status']=$res->getStatusCode();
+        $output['type']= $res->getHeaderLine('content-type');
+        $output['data']=$res->getBody();
+        return json_decode($output['data']);
     }
 
-    public function lista()
+    public function get_maker_car(Request $request)
     {
-        $url=$this->url.'get_list_maker';
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept:application/json, Content-Type:application/json']);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        $output=curl_exec($ch);
-        curl_close($ch);
-        return $output;
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $this->url.'car/get-by-maker?maker_id='.$request->input('maker_id'));
+        $output['status']=$res->getStatusCode();
+        $output['type']= $res->getHeaderLine('content-type');
+        $output['data']=$res->getBody();
+        return $output['data'];
     }
 
-    public function get_maker_car()
+    public function getzonelp()
     {
-        $url=$this->url.'car/get-by-maker';
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL, $url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept:application/json, Content-Type:application/json']);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        $output=curl_exec($ch);
-        curl_close($ch);
-        return $output;
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $this->url.'zone/get-list');
+        $output['status']=$res->getStatusCode();
+        $output['type']= $res->getHeaderLine('content-type');
+        $output['data']=$res->getBody();
+        return json_decode($output['data']);
     }
 
-    //function test
+    public function geterealp()
+    {
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', $this->url.'erea/get-list');
+        $output['status']=$res->getStatusCode();
+        $output['type']= $res->getHeaderLine('content-type');
+        $output['data']=$res->getBody();
+        return json_decode($output['data']);
+    }
+
     public function insert(Request $request)
     {
-            $post = array(
-                'name' => $request->company_name,
-                'email1' => $request->email,
-                'phone'   => '2'
-            );
+        $client = new \GuzzleHttp\Client();
+        $data = [];
+        $res = $client->post($this->url."seller-car/add" ,[
+            'headers' => ['Content-type' => 'application/json'],
+            'json' => $data,
+        ]);
+        $output['status']=$res->getStatusCode();
+        $output['type']= $res->getHeaderLine('content-type');
+        $output['data']=$res->getBody();
+        return $output;
+    }
 
-            $url = "http://192.168.1.16/api/seller/add";
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL,$url);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept:application/json, Content-Type:application/json']);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-            $output=curl_exec($ch);
-            curl_close($ch);
-            print_r($output);
+    public function get_transfer_info()
+    {
+//        $data["step2"] = session()->get('step2');
+//        $data["step1"]["erea1"] = session()->get('erea1');
+//        $data["step1"]["zone1"] = session()->get('zone1');
+//        $data["step3"]["date1"] = session()->get('date1');
+//        $data["step3"]["month1"] = session()->get('month1');
+//        $data["step3"]["year1"] = session()->get('year1');
+//        $data["step3"]["check3"] = session()->get('check3');
+//        $data["step3"]["date2"] = session()->get('date2');
+//        $data["step3"]["month2"] = session()->get('month2');
+//        $data["step3"]["year2"] = session()->get('year2');
+//        $data["step3"]["check3"] = session()->get('check3');
+//        $data["step3"]["date3"] = session()->get('date3');
+//        $data["step3"]["month3"] = session()->get('month3');
+//        $data["step3"]["year3"] = session()->get('year3');
+//        $data["step3"]["check3"] = session()->get('check3');
+//        $data["step2"] = 0;
+        $data["step1"]["zip_code"] = '060-0042';
+        $data["step1"]["erea"] = '2';
+        $data["step1"]["zone"] = '2';
+        return $data;
     }
 
 

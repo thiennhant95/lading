@@ -17,14 +17,12 @@ Route::get('/', function () {
 Route::get('company', function (){
     return view('company');
 });
-Route::get('user', function (){
-    return view('user');
-});
-Route::get('estimate', function (){
-    return view('estimate');
-});
+Route::get('user', 'UserController@user');
+Route::get('estimate','EstimateController@estimate');
 Route::get('assessor','AssessorController@index');
-Route::get('/assessor/get-make-car','AssessorController@list_maker');
+Route::get('/assessor/get-make-car','AssessorController@get_maker_car');
 Route::post('/company/insert','TraderController@insert');
-
+Route::post('estimate/transfer-info','EstimateController@transfer_info');
+Route::post('estimate/seller-add','EstimateController@seller_add');
+Route::post('user/set-info','UserController@setinfouser');
 

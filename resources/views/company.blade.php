@@ -25,7 +25,7 @@
 </style>
 <header>
     <div class="flexrowbetween hdtop main">
-        <div class="logo"><a href="{{url('')}}/"><img src="{{url('')}}/images/common_img/logoLPcom.png" alt="スマオク！ ユーザ直取引 プロ査定員査定 業界初!？ 中古車オークションのビッグバンサイト！"></a></div>
+        <div class="logo"><a href="{{url('')}}/company"><img src="{{url('')}}/images/common_img/logoLPcom.png" alt="スマオク！ ユーザ直取引 プロ査定員査定 業界初!？ 中古車オークションのビッグバンサイト！"></a></div>
         <div class="txt_right clearfix dis_pc">
             <p class="text_right">営業時間：9:00～18:00（月～金）</p>
             <p class="mr10 mt10 teltop"><a href="tel:06-7670-7744"><img src="{{url('')}}/images/company/txttelhd.png" alt="tel:06-7670-7744"></a></p>

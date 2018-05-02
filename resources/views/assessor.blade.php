@@ -22,78 +22,21 @@
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 郵便番号</th>
-                    <td><input class="w60per" type="text" value="" name="zip_code" id="zip_code" size="" tabindex="" onblur="AjaxZip3.zip2addr(this, &#039;&#039;, &#039;area&#039;, &#039;address&#039;);" accesskey="" placeholder="例）112-2222" required></td>
+                    <td><input class="w60per" type="text" value="<?php if (isset($transfer_data_list['step1']['zip_code'])) echo $transfer_data_list['step1']['zip_code']; ?>" name="zip_code" id="zip_code" size="" tabindex="" onblur="AjaxZip3.zip2addr(this, &#039;&#039;, &#039;area&#039;, &#039;address&#039;);" accesskey="" placeholder="例）112-2222" required></td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 都道府県</th>
                     <td>
                         <select name="area" id="area" class="w60per" required>
-                            <option disabled="" selected="" value=""> 都道府県を選択してください </option>
-                            <optgroup label="北海道・東北地方">
-                                <option value="北海道">北海道</option>
-                                <option value="青森県">青森県</option>
-                                <option value="岩手県">岩手県</option>
-                                <option value="秋田県">秋田県</option>
-                                <option value="宮城県">宮城県</option>
-                                <option value="山形県">山形県</option>
-                                <option value="福島県">福島県</option>
-                            </optgroup>
-                            <optgroup label="関東地方">
-                                <option value="東京都">東京都</option>
-                                <option value="神奈川県">神奈川県</option>
-                                <option value="埼玉県">埼玉県</option>
-                                <option value="千葉県">千葉県</option>
-                                <option value="茨城県">茨城県</option>
-                                <option value="栃木県">栃木県</option>
-                                <option value="群馬県">群馬県</option>
-                            </optgroup>
-                            <optgroup label="甲信越地方">
-                                <option value="山梨県">山梨県</option>
-                                <option value="長野県">長野県</option>
-                                <option value="新潟県">新潟県</option>
-                            </optgroup>
-                            <optgroup label="東海地方">
-                                <option value="静岡県">静岡県</option>
-                                <option value="愛知県">愛知県</option>
-                                <option value="岐阜県">岐阜県</option>
-                                <option value="三重県">三重県</option>
-                            </optgroup>
-                            <optgroup label="北陸地方">
-                                <option value="富山県">富山県</option>
-                                <option value="石川県">石川県</option>
-                                <option value="福井県">福井県</option>
-                            </optgroup>
-                            <optgroup label="近畿地方">
-                                <option value="大阪府">大阪府</option>
-                                <option value="京都府">京都府</option>
-                                <option value="奈良県">奈良県</option>
-                                <option value="滋賀県">滋賀県</option>
-                                <option value="和歌山県">和歌山県</option>
-                                <option value="兵庫県">兵庫県</option>
-                            </optgroup>
-                            <optgroup label="中国地方">
-                                <option value="岡山県">岡山県</option>
-                                <option value="広島県">広島県</option>
-                                <option value="鳥取県">鳥取県</option>
-                                <option value="島根県">島根県</option>
-                                <option value="山口県">山口県</option>
-                            </optgroup>
-                            <optgroup label="四国地方">
-                                <option value="香川県">香川県</option>
-                                <option value="徳島県">徳島県</option>
-                                <option value="愛媛県">愛媛県</option>
-                                <option value="高知県">高知県</option>
-                            </optgroup>
-                            <optgroup label="九州・沖縄地方">
-                                <option value="福岡県">福岡県</option>
-                                <option value="佐賀県">佐賀県</option>
-                                <option value="長崎県">長崎県</option>
-                                <option value="大分県">大分県</option>
-                                <option value="熊本県">熊本県</option>
-                                <option value="宮崎県">宮崎県</option>
-                                <option value="鹿児島県">鹿児島県</option>
-                                <option value="沖縄県">沖縄県</option>
-                            </optgroup>
+                            @foreach($list_zone as $key_zone => $zone)
+                                <optgroup label="{{ $zone->name }}">
+                                    @foreach($list_erea as $key_ereas => $ereas)
+                                        @if($zone->id == $ereas->zone_id)
+                                            <option value="{{ $ereas->id }}" <?php if ($transfer_data_list['step1']['erea']== $ereas->id) echo 'selected'?>>{{ $ereas->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
                         </select>
                     </td>
                 </tr>
@@ -136,7 +79,8 @@
                     <td>
                         <p class="flexrowbetween">
                             <input type="file" id="camera1" data_name="pre1" name="image_car[]" class="camera" accept="image/*" capture="camera" required/>
-                            <label tabindex="0" for="camera1" class="input-camera">クリックして撮影</label>
+                            <label tabindex="0" for="camera1" class="input-camera" name="">クリックして撮影</label>
+                            <input type="hidden" name="image_car1" id="preview_hidden1" value="0" >
                             <span class="preview-pre1"></span>
                         </p>
                     </td>
@@ -334,40 +278,39 @@
                     <td class="flexrowbetween flex_alignstart flex_aligncenter">
 
                         <div>
-                            <select class="w135" id="model_year_era">
+                            <select class="w135" id="infor_car_year_type" name="infor_car_year_type">
                                 <option value="H" selected="selected">H</option>
                                 <option value="S">S</option>
                             </select>
                         </div>
                         <div class="w20">
-                            <input class="w50" type="text" value="11" /> 年
+                            <input name="infor_car_year" id="infor_car_year" class="w50" type="text" value="" /> 年
                         </div>
                         <div class="w20">
-                            <input class="w50" id="" type="text" value="11" /> 月
+                            <input name="infor_car_month" class="w50" id="infor_car_month" type="text" value="" /> 月
                         </div>
                         <div>
                             <div class="checkbox">
-                                <input type="hidden" name="data[OwnCar][about_model_year]" id="about_model_year_" value="0" />
-                                <input type="checkbox" name="data[OwnCar][about_model_year]" id="about_model_year" value="1" /> くらい
+                                <input type="checkbox" name="infor_about_check" id="infor_about_check" value="1" /> くらい
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> グレード</th>
-                    <td><input class="w60per" type="text" value="" name="grade" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input class="w60per" type="text" value="" name="grade" id="grade" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 走行距離</th>
-                    <td><input class="w60per" type="text" value="" name="mileage" id="" size="" tabindex="" accesskey="" placeholder="" required> km</td>
+                    <td><input class="w60per" type="text" value="" name="mileage" id="mileage" size="" tabindex="" accesskey="" placeholder="" required> km</td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 排気量</th>
-                    <td><input class="w60per" type="text" value="" name="displacement" id="" size="" tabindex="" accesskey="" placeholder="" required> cc</td>
+                    <td><input class="w60per" type="text" value="" name="displacement" id="displacement" maxlength="20" size="" tabindex="" accesskey="" placeholder="" required> cc</td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 車台番号</th>
-                    <td><input class="w60per" type="text" value="" name="chassis_number" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input class="w60per" type="text" value="" name="chassis_number" id="" maxlength="30" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 走行状態備考</th>
@@ -376,9 +319,11 @@
                 <tr>
                     <th><span class="hinsu">必須</span> 喫煙状況</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="0" id="" name="smoking" tabindex="" accesskey="" checked><span>有</span></label>
-                            <label><input type="radio" value="" id="1" name="smoking" tabindex="" accesskey=""><span>無</span></label>
-                            <label><input type="radio" value="" id="2" name="smoking" tabindex="" accesskey=""><span>不明</span></label></p>
+                        <p class="radio">
+                            <label><input type="radio" value="0" id="smoking0" name="smoking" tabindex="" accesskey="" checked><span>有</span></label>
+                            <label><input type="radio" value="1" id="smoking1" name="smoking" tabindex="" accesskey=""><span>無</span></label>
+                            <label><input type="radio" value="2" id="smoking2" name="smoking" tabindex="" accesskey=""><span>不明</span></label>
+                        </p>
                     </td>
                 </tr>
                 <tr>
@@ -393,11 +338,11 @@
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> エンジン型式</th>
-                    <td><input class="w60per" type="text" value="" name="engine_model" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input class="w60per" type="text" value="" name="engine_model" id="engine_model" size="" maxlength="10" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 型式指定番号</th>
-                    <td><input class="w60per" type="number" value="" name="infor_model_number" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input class="w60per" type="text" value="" name="infor_model_number" id="infor_model_number" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 累計区分番号</th>
@@ -406,7 +351,7 @@
                 <tr>
                     <th><span class="hinsu">必須</span> <span>トランスミッション</span></th>
                     <td>
-                        <select name="transmission" id="" class="w60per" required>
+                        <select name="transmission" id="transmission" class="w60per" required>
                             <option value="0">AT (CVT) </option>
                             <option value="1">MT</option>
                         </select>
@@ -415,29 +360,27 @@
                 <tr>
                     <th><span class="hinsu">必須</span> ハンドル</th>
                     <td>
-                        <select name="handle" id="" class="w60per" required>
-                            <option value="1">ガソリン</option>
-                            <option value="2">ディーゼル </option>
-                            <option value="3">ハイブリッド</option>
-                            <option value="4">電気自動車</option>
+                        <select name="handle" id="handle" class="w60per" required>
+                            <option value="1">右</option>
+                            <option value="2">左 </option>
+                            <option value="3">その他</option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 乗車定員数</th>
-                    <td>
-                        <select name="drive_system" id="" class="w60per" required>
-                            <option value="1">ガソリン</option>
-                            <option value="2">ディーゼル </option>
-                            <option value="3">ハイブリッド</option>
-                            <option value="4">電気自動車</option>
-                        </select>
-                    </td>
+                    <td><input class="w60per" type="text" value="" name="infor_number_passenger" id="infor_number_passenger" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    {{--<select name="infor_number_passenger" id="" class="w60per" required>--}}
+                            {{--<option value="1">ガソリン</option>--}}
+                            {{--<option value="2">ディーゼル </option>--}}
+                            {{--<option value="3">ハイブリッド</option>--}}
+                            {{--<option value="4">電気自動車</option>--}}
+                        {{--</select>--}}
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 燃料</th>
                     <td>
-                        <select name="fuel" id="" class="w60per" required>
+                        <select name="fuel" id="fuel" class="w60per" required>
                             <option value="1">ガソリン</option>
                             <option value="2">ディーゼル </option>
                             <option value="3">ハイブリッド</option>
@@ -455,36 +398,36 @@
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 車両番号</th>
-                    <td><input class="w60per" type="text" value="" name="infor_vehicle_number" id="infor_vehicle_number" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input class="w60per" type="text" value="" name="infor_vehicle_number" maxlength="20" id="infor_vehicle_number" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> リサイクル料金</th>
-                    <td><input class="w60per" type="text" value="" name="recycling_fee" id="recycling_fee" size="" tabindex="" accesskey="" placeholder="" required> 円</td>
+                    <td><input class="w60per" type="text" value="" name="recycling_fee" id="recycling_fee"  maxlength="10" size="" tabindex="" accesskey="" placeholder="" required> 円</td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 保証書</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="" id="" name="infor_written_guarantee" tabindex="" accesskey="" checked><span>有</span></label>
-                            <label><input type="radio" value="" id="" name="infor_written_guarantee" tabindex="" accesskey=""><span>無</span></label>
-                            <label><input type="radio" value="" id="" name="infor_written_guarantee" tabindex="" accesskey=""><span>未確認</span></label></p>
+                        <p class="radio"><label><input type="radio" value="0" id="" name="infor_written_guarantee" tabindex="" accesskey="" checked><span>有</span></label>
+                            <label><input type="radio" value="1" id="" name="infor_written_guarantee" tabindex="" accesskey=""><span>無</span></label>
+                            <label><input type="radio" value="3" id="" name="infor_written_guarantee" tabindex="" accesskey=""><span>未確認</span></label></p>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 点検記録簿</th>
                     <td>
-                        <p class="radio"><label><input type="radio" value="" id="" name="infor_record_book" tabindex="" accesskey="" checked><span>有</span></label>
-                            <label><input type="radio" value="" id="" name="infor_record_book" tabindex="" accesskey=""><span>無</span></label>
-                            <label><input type="radio" value="" id="" name="infor_record_book" tabindex="" accesskey=""><span>未確認</span></label></p>
+                        <p class="radio"><label><input type="radio" value="0" id="" name="infor_record_book" tabindex="" accesskey="" checked><span>有</span></label>
+                            <label><input type="radio" value="1" id="" name="infor_record_book" tabindex="" accesskey=""><span>無</span></label>
+                            <label><input type="radio" value="2" id="" name="infor_record_book" tabindex="" accesskey=""><span>未確認</span></label></p>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 車歴</th>
                     <td>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="infor_history" tabindex="" accesskey="" checked><span>自家用</span></label>
-                            <label><input type="radio" value="" id="" name="infor_history" tabindex="" accesskey=""><span>事業用</span></label>
-                            <label><input type="radio" value="" id="" name="infor_history" tabindex="" accesskey=""><span>レンタル</span></label>
-                            <label><input type="radio" value="" id="" name="infor_history" tabindex="" accesskey=""><span>未確認</span></label>
+                            <label><input type="radio" value="1" id="" name="infor_history" tabindex="" accesskey="" checked><span>自家用</span></label>
+                            <label><input type="radio" value="2" id="" name="infor_history" tabindex="" accesskey=""><span>事業用</span></label>
+                            <label><input type="radio" value="3" id="" name="infor_history" tabindex="" accesskey=""><span>レンタル</span></label>
+                            <label><input type="radio" value="4" id="" name="infor_history" tabindex="" accesskey=""><span>未確認</span></label>
                         </p>
                     </td>
                 </tr>
@@ -492,53 +435,53 @@
                     <th class="vertitop pos"><span class="hinsu">必須</span> <span class="txtspan">装備品<br>（オプション等）</span></th>
                     <td>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey="" checked><span>エアコン</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>パワステ</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>パワーウィンドウ</span></label>
+                            <label><input type="radio" value="1" id="" name="equipment_infor" tabindex="" accesskey="" checked><span>エアコン</span></label>
+                            <label><input type="radio" value="2" id="" name="equipment_infor" tabindex="" accesskey=""><span>パワステ</span></label>
+                            <label><input type="radio" value="3" id="" name="equipment_infor" tabindex="" accesskey=""><span>パワーウィンドウ</span></label>
                         </p>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>集中ドアロック</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>ABS</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>エアバッグ</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>ETC</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>キーレスエントリー</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>スマートキー</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>CD</span></label>
+                            <label><input type="radio" value="4" id="" name="equipment_infor" tabindex="" accesskey=""><span>集中ドアロック</span></label>
+                            <label><input type="radio" value="5" id="" name="equipment_infor" tabindex="" accesskey=""><span>ABS</span></label>
+                            <label><input type="radio" value="6" id="" name="equipment_infor" tabindex="" accesskey=""><span>エアバッグ</span></label>
+                            <label><input type="radio" value="7" id="" name="equipment_infor" tabindex="" accesskey=""><span>ETC</span></label>
+                            <label><input type="radio" value="8" id="" name="equipment_infor" tabindex="" accesskey=""><span>キーレスエントリー</span></label>
+                            <label><input type="radio" value="9" id="" name="equipment_infor" tabindex="" accesskey=""><span>スマートキー</span></label>
+                            <label><input type="radio" value="10" id="" name="equipment_infor" tabindex="" accesskey=""><span>CD</span></label>
                         </p>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>MD</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>DVDビデオ</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>テレビ</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>ナビゲーション</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>バックカメラ</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>電動スライドドア</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>サンルーフ</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>本革シート</span></label>
+                            <label><input type="radio" value="11" id="" name="equipment_infor" tabindex="" accesskey=""><span>MD</span></label>
+                            <label><input type="radio" value="12" id="" name="equipment_infor" tabindex="" accesskey=""><span>DVDビデオ</span></label>
+                            <label><input type="radio" value="13" id="" name="equipment_infor" tabindex="" accesskey=""><span>テレビ</span></label>
+                            <label><input type="radio" value="14" id="" name="equipment_infor" tabindex="" accesskey=""><span>ナビゲーション</span></label>
+                            <label><input type="radio" value="15" id="" name="equipment_infor" tabindex="" accesskey=""><span>バックカメラ</span></label>
+                            <label><input type="radio" value="16" id="" name="equipment_infor" tabindex="" accesskey=""><span>電動スライドドア</span></label>
+                            <label><input type="radio" value="17" id="" name="equipment_infor" tabindex="" accesskey=""><span>サンルーフ</span></label>
+                            <label><input type="radio" value="18" id="" name="equipment_infor" tabindex="" accesskey=""><span>本革シート</span></label>
                         </p>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>純正エアロパーツ</span></label>
+                            <label><input type="radio" value="20" id="" name="equipment_infor" tabindex="" accesskey=""><span>純正エアロパーツ</span></label>
                         </p>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>純正アルミホイール</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>横滑り防止装置</span></label>
+                            <label><input type="radio" value="21" id="" name="equipment_infor" tabindex="" accesskey=""><span>純正アルミホイール</span></label>
+                            <label><input type="radio" value="22" id="" name="equipment_infor" tabindex="" accesskey=""><span>横滑り防止装置</span></label>
                         </p>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>トラクションコントロール</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>寒冷地仕様車</span></label>
+                            <label><input type="radio" value="23" id="" name="equipment_infor" tabindex="" accesskey=""><span>トラクションコントロール</span></label>
+                            <label><input type="radio" value="24" id="" name="equipment_infor" tabindex="" accesskey=""><span>寒冷地仕様車</span></label>
                         </p>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>福祉車両</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>ローダウン</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>禁煙車</span></label>
+                            <label><input type="radio" value="25" id="" name="equipment_infor" tabindex="" accesskey=""><span>福祉車両</span></label>
+                            <label><input type="radio" value="26" id="" name="equipment_infor" tabindex="" accesskey=""><span>ローダウン</span></label>
+                            <label><input type="radio" value="27" id="" name="equipment_infor" tabindex="" accesskey=""><span>禁煙車</span></label>
                         </p>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>ペット同乗歴なし</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>限定車</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>取扱説明書</span></label>
+                            <label><input type="radio" value="28" id="" name="equipment_infor" tabindex="" accesskey=""><span>ペット同乗歴なし</span></label>
+                            <label><input type="radio" value="29" id="" name="equipment_infor" tabindex="" accesskey=""><span>限定車</span></label>
+                            <label><input type="radio" value="39" id="" name="equipment_infor" tabindex="" accesskey=""><span>取扱説明書</span></label>
                         </p>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>新車時保証書</span></label>
-                            <label><input type="radio" value="" id="" name="equipment_infor" tabindex="" accesskey=""><span>スペアタイヤ</span></label>
+                            <label><input type="radio" value="31" id="" name="equipment_infor" tabindex="" accesskey=""><span>新車時保証書</span></label>
+                            <label><input type="radio" value="32" id="" name="equipment_infor" tabindex="" accesskey=""><span>スペアタイヤ</span></label>
                         </p>
                     </td>
                 </tr>
@@ -546,17 +489,17 @@
                     <th><span class="hinsu">必須</span> <span class="txtspan">エアコン</span></th>
                     <td>
                         <p class="radio">
-                            <label><input type="radio" value="" id="" name="infor_air_condition" tabindex="" accesskey="" checked><span>無</span></label>
-                            <label><input type="radio" value="" id="" name="infor_air_condition" tabindex="" accesskey=""><span>オート</span></label>
-                            <label><input type="radio" value="" id="" name="infor_air_condition" tabindex="" accesskey=""><span>マニュアル</span></label>
-                            <label><input type="radio" value="" id="" name="infor_air_condition" tabindex="" accesskey=""><span>故障</span></label>
-                            <label><input type="radio" value="" id="" name="infor_air_condition" tabindex="" accesskey=""><span>不明</span></label>
+                            <label><input type="radio" value="1" id="" name="infor_air_condition" tabindex="" accesskey="" checked><span>無</span></label>
+                            <label><input type="radio" value="2" id="" name="infor_air_condition" tabindex="" accesskey=""><span>オート</span></label>
+                            <label><input type="radio" value="3" id="" name="infor_air_condition" tabindex="" accesskey=""><span>マニュアル</span></label>
+                            <label><input type="radio" value="4" id="" name="infor_air_condition" tabindex="" accesskey=""><span>故障</span></label>
+                            <label><input type="radio" value="5" id="" name="infor_air_condition" tabindex="" accesskey=""><span>不明</span></label>
                         </p>
                     </td>
                 </tr>
                 <tr>
                     <th class="pos"><span class="hinsu">必須</span> <span class="txtspan">装備品（オプション等）備考</span></th>
-                    <td class="vertitop"><input type="text" value="" name="equipment_infor_remark" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td class="vertitop"><input type="text" value="" name="equipment_infor_remark" id="equipment_infor_remark" size="" tabindex="" accesskey="" placeholder="" maxlength="50" required></td>
                 </tr>
                 <tr>
                     <th class="pos"><span class="hinsu">必須</span> <span class="txtspan">外装の状態（キズやヘコミ、塗装はげ、錆など）</span></th>
@@ -570,15 +513,15 @@
                     <th class="vertitop"><span class="hinsu">必須</span> 評価点</th>
                     <td>
                         <ul class="flexrowbetween">
-                            <li>総合<input type="text" value="" name="assessment_synthetic" id="" size="" tabindex="" accesskey="" placeholder="" required>点</li>
-                            <li>外装<input type="text" value="" name="assessment_exterior" id="" size="" tabindex="" accesskey="" placeholder="" required>点</li>
-                            <li>内装<input type="text" value="" name="assessment_interior" id="" size="" tabindex="" accesskey="" placeholder="" required>点</li>
+                            <li>総合<input type="text" value="" name="assessment_synthetic" id="assessment_synthetic" size="" tabindex="" accesskey="" placeholder="" required>点</li>
+                            <li>外装<input type="text" value="" name="assessment_exterior" id="assessment_exterior" size="" tabindex="" accesskey="" placeholder="" required>点</li>
+                            <li>内装<input type="text" value="" name="assessment_interior" id="assessment_interior" size="" tabindex="" accesskey="" placeholder="" required>点</li>
                         </ul>
                     </td>
                 </tr>
                 <tr>
                     <th><span class="hinsu">必須</span> 評価者コメント</th>
-                    <td><input type="text" value="" name="assessment_comment" id="" size="" tabindex="" accesskey="" placeholder="" required></td>
+                    <td><input type="text" value="" name="assessment_comment" id="assessment_comment" size="" tabindex="" accesskey="" placeholder="" required></td>
                 </tr>
                 <tr>
                     <th class="vertitop"><span class="hinsu">必須</span> 査定表</th>
@@ -607,7 +550,7 @@
                 <tr>
                     <th class="vertitop"><span class="hinsu">必須</span> 最低希望価格</th>
                     <td>
-                        <input type="text" value="" name="reception_minimum_recommend_price" id="" size="" tabindex="" accesskey="" placeholder="" class="w60per" required> 円
+                        <input type="text" value="" name="reception_minimum_recommend_price" id="reception_minimum_recommend_price" size="" tabindex="" accesskey="" placeholder="" class="w60per" required> 円
                     </td>
                 </tr>
                 <tr>
@@ -637,7 +580,7 @@
                                     <?php
                                     foreach ($year as $row_year):
                                     ?>
-                                    <option value="<?php echo $row_year ?>"><?php echo $row_year?></option>
+                                    <option value="<?php echo $row_year ?>" <?php if ($row_year==date('Y'))echo "selected" ?>><?php echo $row_year?></option>
                                     <?php
                                     endforeach;
                                     ?>
@@ -648,7 +591,7 @@
                                     <?php
                                     foreach ($month as $row_month):
                                     ?>
-                                    <option value="<?php echo $row_month ?>"><?php echo $row_month?></option>
+                                    <option value="<?php echo $row_month ?>" <?php if ($row_month==date('m'))echo "selected" ?>><?php echo $row_month?></option>
                                     <?php
                                     endforeach;
                                     ?>
@@ -659,7 +602,7 @@
                                     <?php
                                     foreach ($day as $row_day):
                                     ?>
-                                    <option value="<?php echo $row_day?>"><?php echo $row_day?></option>
+                                    <option value="<?php echo $row_day?>" <?php if ($row_day==date('d'))echo "selected" ?>><?php echo $row_day?></option>
                                     <?php
                                     endforeach;
                                     ?>
@@ -671,13 +614,10 @@
             </table>
         </div>
         <div class="btnbtom">
-        <button id="submit" class="btnbtom" >登録する</button>
+        <button id="submit" class="btnbtom submit" >登録する</button>
         </div>
     </article>
     </form>
-    <style type='text/css'>
-        .ui-datepicker-calendar,.ui-datepicker-month { display: none; }​
-    </style>
 </section>
 @endsection
 @section('script')

@@ -17,16 +17,15 @@ class TraderController extends Controller
 
     public function insert(Request $request)
     {
+        $client = new \GuzzleHttp\Client();
         $data = $request->input();
-        $url = $this->url."trader/add";
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL,$url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept:application/json, Content-Type:application/json']);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        $output=curl_exec($ch);
-        curl_close($ch);
+        $res = $client->post($this->url."trader/add" ,[
+            'headers' => ['Content-type' => 'application/json'],
+            'json' => $data,
+        ]);
+        $output['status']=$res->getStatusCode();
+        $output['type']= $res->getHeaderLine('content-type');
+        $output['data']=$res->getBody();
         return $output;
     }
 }

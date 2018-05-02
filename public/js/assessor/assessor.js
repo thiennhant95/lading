@@ -40,6 +40,7 @@ function readURL(input) {
             load_avatar.show();
             reader.readAsDataURL(input.files[0]);
             $(input).attr('id', 'camera');
+            $('#preview_hidden1').val('1');
         }
     }
 }
@@ -91,18 +92,55 @@ $(document).ready(function() {
         value = value.replace(/\s+/g, "");
         return this.optional(element) || value.match(/^([0-9]{3})(-[0-9]{4})?$/i);
     }, "Please specify a valid zip code");
+    jQuery.validator.addMethod("images", function(value, element) {
+        // var r = $(".preview-pre1").children('img');
+        // if(r.length)
+        // {
+        //     return true;
+        // }
+        // else
+        //     return false
+        if ($('#preview_hidden1').val()==1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }, "You must have images here");
     $("#AssessorId").validate({
         rules: {
             'name': {required: true},
             'zip_code': {required: true,zip_code:true},
             'phone': {required: true, regex_phone: true},
             'email': {required: true, email: true},
+            'address':{required:true},
             'model_year':{required:true},
             'grade':{required: true},
-            'reception_minimum_recommend_price':{required:true},
+            'mileage':{required:true,number:true},
+            'displacement':{required:true,number:true},
+            'engine_model':{required:true,maxlength:10},
+            'infor_model_number':{required:true,number:true},
+            'classification_number':{required:true,number:true},
+            'infor_number_passenger':{required:true,number:true},
+            'chassis_number':{required:true,number:true},
+            'infor_vehicle_number':{required:true,maxlength:20},
+            'recycling_fee':{required:true,maxlength:20},
+            'reception_minimum_recommend_price':{required:true,number:true},
+            'infor_condition_exterior':{required:true},
+            'infor_state_interior':{required:true},
+            'equipment_infor_remark':{required:true},
+            'assessment_comment':{required:true},
             'year_end':{required:true},
             'month_end':{required:true},
             'day_end':{required:true},
+            'infor_car_year':{required:true,number:true},
+            'infor_car_month':{required:true,number:true},
+            'assessment_synthetic':{required:true,number:true},
+            'assessment_exterior':{required:true,number:true},
+            'assessment_interior':{required:true,number:true},
+            'image_car1':{images:true}
         }, tooltip_options: {}
     });
 });
@@ -194,19 +232,23 @@ $("#infor_maker_id").change(function(){
     var maker_id = $(this).val();
     $.ajax({
         url:'/assessor/get-make-car',
-        // url:'http://llc.jp/api/car/get-by-maker',
         data:{maker_id:maker_id},
         method:'GET',
         dataType:'json',
         success:function(data){
-            var html = '<option value="">----------</option>';
+            var html;
             if(data != null && data.length > 0){
                 for(var i=0;i<data.length;i++){
                     html += '<option value="'+data[i]['id']+'">'+data[i]['name']+'</option>';
                 }
             }
-            console.log(html);
+            // console.log(html);
             $("#infor_car_id").html(html);
         }
     })
-})
+});
+
+//
+$('#AssessorId').on('click','.submit',function () {
+
+});
